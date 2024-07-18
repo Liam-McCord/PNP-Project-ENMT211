@@ -1,17 +1,22 @@
 # Project Planning
+
 Please throw all ideas in this document, we'll make it neat later - Michael 17/07/2024
 
-Problem Definition: As of now, achievable and hands-free solutions for wasp relocation are not commonplace.
+## Problem Definition: As of now, achievable and hands-free solutions for wasp relocation are not commonplace
+
 Currently, PCB manual assembly is:
+
 - Time-consuming
 - Error-prone/Inaccurate
-- Expensive (Labor costs)
+- Expensive (Labour costs)
 - Constant monitoring
 - Non-scalable
 - Manager has to work with people :(
 
-Constraints:
-Hard Constraints:
+## Constraints
+
+### Hard Constraints
+
 - Scalable (Mass Production)
 - Cost (Maximum)
 - Dimensions - We are designing for PCBs with a square width of 300mm*300mm or smaller will be used.
@@ -19,7 +24,8 @@ Hard Constraints:
 - Does it pick, does it place?
 - Must be feasible to finish before week 6
   
-Soft Constraints:
+### Soft Constraints
+
 - Cost
 - Scalable
 - Easy to use (What training is needed?)
@@ -28,10 +34,8 @@ Soft Constraints:
 - Simple Design
 - Should minimise required user input
 
+## What we want to achieve
 
-  
-  
 - Automation of placing components
 - Replaces by-hand component placement, which is difficult and slow.
 - Reduces component placement time
-
