@@ -1,0 +1,314 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{subfig} % I'll be using this for an image table for the design sketches :)
+\usepackage{float} %image insertion
+\usepackage{csquotes}
+\usepackage{xcolor} %allows variable text colour
+\usepackage{geometry} % sets page size (margins can also be set here)
+    \geometry
+    {a4paper}
+\usepackage[all]{nowidow} %prevents widows
+\usepackage[english]{babel}
+\usepackage[style=ieee,sorting=nty]{biblatex}
+    \addbibresource{misosouppp.bib}
+    \nocite{*} % Remove later, just making sure the bib prints for testing
+\usepackage{amsmath} % for nice numbers/units in text
+
+\date{July 2024}
+
+\begin{document}
+\setlength{\parindent}{0cm} % Remove paragraph indentation
+
+\newgeometry{left=16mm, 
+    right=16mm,
+    bottom=20mm,
+    top=20mm}
+
+
+\textbf{NOTES:}
+\textcolor{red}{I think we should annotate a photo or drawing of the final product (or near final product, as the person reading the report won't know the difference) with numbers and/or labels on the major brackets and components, and add this figure early on in the report to make referencing various parts of the design in the report really easy and simple, and clarify things. (There is a word limit not a page limit so this wouldn't compromise space.) - PHILIP} - if you like this idea then add your name or something so we all know who is agreement
+
+If space, discuss what we learned from the whole project
+
+% Can the girls please upload (or paste path to) part file for new part opposite motor (the one with the 40mm extension and 10mm rise - Philip needs it for a comparison in an image, and cannot locate it on github (DONE)
+
+% Could the boys working on the controller talk about the challenges of using gcode with corexy (if there's time) as both motors control x and y movements? Include the 45 degree angle shift PHILIP IS HAPPY TO DO THIS - DONE
+
+\newpage
+\begin{titlepage}    
+        \begin{center}
+        % Upper part of the page
+        % \includegraphics[width=0.15\textwidth]{./logo}\\[1cm]  
+        \textsc{\large ENMT221 - Mechatronics Design 1}\\[0.5cm]
+        \textsc{\large Department of Mechantronics Engineering}\\[0.5cm]
+        \textsc{\Large University of Canterbury}\\[3.5cm]
+        % Title
+        \linespread{1.5}
+        {\Huge\bfseries Design and Manufacture of Pick and Place Machine for PCB Assembly Using Engineering Process :D\par} %Design and Manufacture of Pick and Place Machine for PCB Assembly Using Engingeering Process
+        \vspace*{3cm}
+        {\Large Brand, Philip (15776928) \\ Brown, Michael (48571923) \\ Donkin, Eva (49252595) \\ McCord, Liam (45446549) \\ Reeve, Elizabeth (55869297) \par}
+        \vspace{5cm}
+        {\large \today}
+        \end{center}
+    \end{titlepage}
+\restoregeometry
+\pagenumbering{roman}   
+
+
+\section{Abstract - LIAM}
+% Provide a concise overview of the entire project, including key objectives, methods, and outcomes. Example: "This project aimed to design and manufacture an ergonomic computer mouse, resulting in a prototype that reduces wrist strain by 30% compared to standard models."
+
+
+\newpage 
+\tableofcontents
+
+
+\newpage
+\pagenumbering{arabic}
+\setlength{\parskip}{\baselineskip} % Add space between paragraphs
+
+
+\section{Introduction - ELIZ}
+% Set the context for your project, explain its relevance, and clearly state your objectives. Example: "With the rise of repetitive strain injuries in office workers, there's a growing need for more ergonomic computer peripherals."
+
+
+\section{Design Process}
+
+\subsection{Problem Definition - ELIZ}
+% Clearly state the problem you're addressing and any constraints or requirements. Example: "The problem was to create a computer mouse that reduces wrist strain during prolonged use while maintaining user comfort and functionality."
+There is a lack of cheap and repairable Pick and Place (PNP) machines due to most being sold for industrial-scale manufacturing automation, with even the cheaper machines costing around \$2000 USD \textcolor{red}{note to michael: change price to nzd, cite due to currency changes}\cite{opuloHomePage}. In addition to high cost, the complex components and material choice makes them hard for hobbyists to repair, leading to additional long-term costs. This design project aims to design \textcolor{blue}{[Note: Find different word]} and assemble a CNC PNP machine, suitable for a hobbyist market to increase accessibility of PNP machines. The solution presented must fulfil the following criteria to be considered successful:
+
+\begin{itemize}
+    \itemsep-0.1cm %reduces spacing between bullet points
+    \item Overall material cost of under \$200
+    \item Material used to easily accessible materials, such as 
+    \begin{itemize}
+        \itemsep-0.1cm
+        \item MDF
+        \item 3D Printed Components \textcolor{red}{May not be specific enough, think SMART style goal}
+        \item Sheet metal
+        \item Conventional standardised screw sizes
+    \end{itemize} 
+    \item Easily repairable without specialist knowledge
+    \item Accurate to acceptable standard \textcolor{red}{Will find a more specific parameter for this later}
+    \item Easy to customise
+    \item Simple design?
+\end{itemize}
+
+In addition, the presented solution should fulfil as many of the following criteria as possible:
+
+%Components must be simple both in design in manufacturing
+%Cost should be as reasonably low as possible without significant quality sacrifices
+%Customisation of device possible without high cost
+
+% \begin{itemize}
+%     \item Lack of easy access to hobbyist PNP equipment
+%     \item Enable easier repair (physically easy to change as well as accessible materials, e.g. mdf)
+% \end{itemize}
+
+
+\subsection{Generated Concepts - MICHAEL}
+% Describe your ideation process and initial design concepts. Each group member should generate at least one design concept. Example: "We brainstormed and sketched five initial concepts, with each team member contributing at least one unique design idea, ranging from vertical designs to trackball variations."
+
+As part of the solution designing process, each group member proposed a different style of solution (Figure \ref{concepts_overall_group}). The proposed solutions focused on different approaches to gantry systems, and were categorised as follows:
+
+\begin{itemize}
+    \item XY rails move the Z-screw, Z-screw moves the suction tip (Figures \ref{concepts_raised_zscrew}, \ref{concepts_sameheight_gantry}, \ref{concepts_claw_machine})
+    \item Z-screw moves the entire rail system, XY rails move the suction tip (Figure \ref{concepts_tilt_table})
+    \item The PCB is moved by the platform it sits on, Z-screw moves the suction tip (Figure \ref{concepets_platform_ball}) 
+\end{itemize} %WRONG SHELF PHOTO, TBC
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Raised Z-Screw]{
+        \label{concepts_raised_zscrew}
+        \includegraphics[width=0.3\textwidth]{Images/Design Sketches/Design Idea - Gantry - 1.jpg} 
+    }
+    \subfloat[Same-Height Gantry System]{
+        \label{concepts_sameheight_gantry}
+        \includegraphics[width=0.3\textwidth]{Images/Design Sketches/Design Idea - Gantry - 2.png}
+    }
+    \subfloat[Tilt Table Design]{
+        \label{concepts_tilt_table}
+        \includegraphics[width=0.3\textwidth]{Images/Design Sketches/Design Idea - Tilt table.jpg}
+    }
+    
+    \subfloat[Claw Machine Design]{
+        \label{concepts_claw_machine}
+        \includegraphics[width=0.3\textwidth]{Images/Design Sketches/Design Idea - Claw Machine - Light Mode.jpg}
+    }
+    \subfloat[Moving Platform Ball Support]{
+        \label{concepets_platform_ball}
+        \includegraphics[width=0.3\textwidth]{Images/Design Sketches/Design Idea - Moving Platform Ball Support.jpg}
+    }
+    \caption{Design proposal image sketches pitched by each project member.}
+    \label{concepts_overall_group}
+\end{figure}
+
+Solutions where the XY rails controlled the position of the Z-screw offered some of the most accurate control with use of lead screws, and even belts would allow for relatively accurate movement at a higher speed. However, there is relatively low maximum acceleration due to the high inertia of the Z-screw.
+
+Other solutions have the Z-screw moving the x-y axis rail system vertically, where the suction tip is attached directly to the XY rails. This comes with the advantage of a higher maximum XY speed due to the lower inertia of the suction tip. However, the Z-screw would be have to support a considerable moment, reducing stability and increasing the rate of wear on that component. 
+
+One proposed solution forgoes the use of the rail system to move the suction head entirely, instead moving the platform on which the PCB rests. Depending on the platform movement, such as with wheels, this could theoretically extend the range of movement significantly without adding extra components. The Z-screw would also only have to move the suction tip, thus will have no moment disadvantages. However, there were concerns over the accuracy of the wheel system.
+
+
+\subsection{Developed Solution - LIAM}
+% Explain how you selected and developed your chosen concept. Include a decision matrix to justify your final selection, which may incorporate elements from multiple individual concepts. Example: "We used a weighted decision matrix to evaluate our initial concepts based on criteria such as ergonomics, manufacturability, and cost. Our final design integrated the highest-scoring elements from multiple concepts, resulting in a contoured shape with a vertical grip from one concept and customizable buttons from another. This combination scored highest across all our evaluation criteria."
+
+Following the design proposals, a solution was chosen to meet the proper requirements. The final solution was chosen to be belt-driven in the medium of a corexy motion scheme. A corexy belt path configuration used two offset belts driven by corresponding stepper motors to move the vacuum tube mount. In this configuration, both stepper motors were fixed to the main frame and are not carried on the sliders, which significantly lightened the mount. This reduced the loading on the sliders, allowing for a much higher speed. The combination of the two belts in the corexy setup allowed for fast movement in the X and Y directions, as well as only using two motors. For the movement in the Z direction, the baseplate itself was raised and lowered by the given Z-Screw. This again was fixed directly to the frame of the PNP machine and so did not increase the weight of the moving mount. Through a combination of corexy and the vertically moving baseplate, a full range of motion was achieved.
+
+\begin{itemize}
+    \item Discuss what we based our design off of
+    \item discuss corexy - why are we using it?
+    \item describe the benefits of the new design and why we ended up choosing it
+    \item describe how we developed it further :)
+\end{itemize}
+
+\begin{itemize}
+    \item see: design sketches
+    \item various considerations including \begin{itemize}
+        \item whether to move the giant 10 ton block of metal
+        \item is the platform moving or is the pnp suction thing moving
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+        \subfloat[CoreXY Design Solution]{
+            \label{concepts_final_design}
+            \includegraphics[width=0.6\textwidth]{Images/Design Sketches/Final Design - Blue Mode.png} 
+        }
+    \label{concepts_final_design_group}
+\end{figure}
+
+
+\subsection {Prototype Construction and Testing}
+% Detail the prototyping process and initial testing procedures. Discuss any improvements made during iterations. Example: "We 3D printed three iterations of the prototype. After initial user testing, we refined the thumb rest angle, improving comfort scores by 25% in the second iteration."
+
+Changes were made to both the overall design and specific parts of the design during machine construction. There are multiple was of positioning the belts opposite the motors in a corexy motion system. Designs have a combination of belts crossing over, and belts positioned at different distances to the motor, and these design differences have a significant impact on the relevant brackets supporting the belts in that location.
+
+The original design of the machine had both belts crossing over, and located at different distances. The first version of brackets modelled in Solidworks were very complicated, requiring multiple supports when 3D printed, and with no ability for adjustments to location when installed. They were printed successfully, but during installation, it was realised the bracket on one side had been mirrored incorrectly and was incompatible with the bracket on the opposite side. Due to its complex design, modification of the bracket to fix this issue proved very difficult.
+
+Two different members of the team worked together to fix the issue, solving the problem by redesigning the bracket entirely with positioning adjustments, enabling flexible bracket location during installation (figure \ref{fig:m.c.esher bracket comparsion}). This new design had added benefits in that the bracket on one side was a direct mirror image of the other, unlike the first version, which required heavy modification to produce the corresponding 'mirrored' part. Once the x-y axes had been assembled and the belts were installed, a minor issue was noted - the belt would rub on the rear side of PART NUMBER OR DESCRIPTION. Another advantage of the second version of the bracket was that it was incredibly easy to modify to fix the issue, which was done by extending the outermost pulley 40mm away from the machine centre.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[
+        trim=2cm 0cm 0cm 2cm, clip,
+        width=0.9\linewidth]{Images/bracket comparsion.png} 
+    \caption{Comparison of bracket design versions}
+    \label{fig:m.c.esher bracket comparsion}
+\end{figure}
+
+Another part of the PNP machine for which multiple versions were developed was the bracket mounting the motor to the wooden sides of the machine. The original motor mount had no room for horizontal position adjustments, and when the bracket was mounted and the belts attached, alignment issues were present. This was solved by reshaping the vertical edge on the bracket and adding slots to allow movement. In the same way as the brackets opposite the motor discussed above, when the bolt fixing the bracket to the wooden side was tightened, a washer would clamp up against the bracket and prevent any movement.
+
+%============================================================================================================
+
+
+\subsection{Evaluation}
+% Analyze how well your solution meets the initial requirements. Example: "EMG tests showed a 30% reduction in wrist muscle activity compared to standard mice, meeting our primary goal."
+
+The PNP machine met all of the initial design criteria. The total material cost was \textbf{\textcolor{red}{whoever is doing costs needs to add the cost here}}, which was \$dollars under the target. The materials used were all readily accessible, and the variety of materials was minimised to lower costs. The overall design was reasonably simple, and is able to be maintained, repaired, or upgraded by a competent hobbyist. 
+
+One challenge with coreXY motion control is generating the gcode to control the motors, as although there are x and y axis, there are not individual motors to control these axes. To move the suction head parallel to the long edge of the base plate, both motors rotate in the same direction. To move perpendicular to plate, both motors rotate in opposite directions. Gcode designed for a conventional motion control results in movement in a plane rotated 45 degrees. This means that consideration must be taken when using the device to ensure the suction head moves in the desired direction; the added complexity is not large, but allowance when programming the motion is important.
+
+\subsection{Presented Solution}
+% Describe the final design and how it addresses the initial problem. Include an animation and/or real video of assembly and operation of your product. Submit all CAD files with the report. Example: "The final design features a 45-degree tilt, customizable thumb rest, and uses low-friction PTFE feet for smooth movement. An animation demonstrating the assembly process and ergonomic benefits is included in Appendix E."
+
+Overall, this PNP machine design is suitable for hobbyist applications. The coreXY motion control enables the suction head to move quickly and accurately to any position on the base plate, and the variable plate height enables use of PCBs with a wide range of depths. The belt tension is easily adjustable, allowing users to ensure tension is consistent across different conditions and times, as belt tension will decrease as the belts warm from continuous use, and as they stretch over time. The device demonstrated good behaviour, with a maximum suction head speed of \textbf{\textcolor{red}{measure this tonight (Friday)}} $200\,mm/s$, and a maximum head acceleration of \textbf{\textcolor{red}{measure this tonight (Friday)}}. 
+
+
+\section{Materials Selection}
+% Justify your choice of materials based on project requirements and constraints. Include specific material properties that influenced your decision. Example: "We selected ABS plastic for the body due to its durability, cost-effectiveness, and ease of injection molding. The specific grade chosen (ABS-XYZ) offers improved impact resistance crucial for accidental drops."
+
+Since the focus of the design was to give hobbyists reliable access to PNP machines, the materials had to allow such people to easily repair and/or replace components of the device. The design also focused on minimising cost, and this was also a driving factor in material selection. Both wood and metal were considered for the main body supporting the x-y axis plane and related motor and pulley brackets. Metal had advantage of being more durable than wood, and would provide better rigidity to the machine. However, the design would be more complicated if metal was used for these parts. Medium density fibreboard (MDF) was chosen instead, as it would provide sufficient stability for the machine, and is very accessible as virtually every local hardware store in New Zealand and in other first-world countries supply it. MDF is also very easy to machine. Some limitations of MDF
+
+For the brackets designed for specific tasks such as motor and pullet mounting, and connecting x and y axis, 3D printing was chosen. If the aim for the project was mass production, custom injection moulded parts would have been used due to their superior strength and low manufacturing cost. However, these parts would not be easily repairable or replaceable by hobbyists. Hobbyists looking to invest in a PNP machine would be highly likely to already have a 3D printer, so 3D printing was chosen as it maximised accessibility while minimising cost. The filament used in the printing was polylactic acid (PLA) filament. One limitation of using this material is the long print times in the manufacturing, and the increased material cost.
+
+
+\section{Cost Analysis - EVA}
+% Break down the costs associated with your project, including materials, labor, and overhead. Include a detailed Bill of Materials (BOM) with component prices and weblinks. Example: "The total cost per unit is $15.75, breaking down to $8 for materials, $5 for labor, and $2.75 for overhead. Our BOM in Appendix B lists all 23 components with their respective costs and supplier links."
+Aside from the standardised parts supplied, the main costs associated with the PNP machine were due to 3d printing and the MDF base. PLA Xmm filament was used for the 3d printing \textcolor{red}{check type and diameter} which was assumed to be $\$0.25/cm^3$ \cite{hlrapid}. The MDF base was estimated to be $\$17.70/m^2$\cite{Bunnings}, however cheaper materials may be able to be sourced if this product were to be produced in mass.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+         \hline
+         & Cost \\
+         \hline
+         3D printing& \$103.10 aint no way imma check this rq \\
+         \hline
+         MDF & \ \$11.55 \\
+         \hline
+         Steel Plate Shaping& ??\\
+         \hline
+    \end{tabular}
+    \caption{Comparing different factors considered when sourcing parts}
+    \label{tab:parts_source_comparison}
+\end{table}
+
+The cheapest commercial PNP machines cost between \$3000 and \$6000NZD which is high above many customers' price range, so this PNP model aims to open up a market for those who require a less costly alternative that still produces high quality results. 
+
+
+\section{Manufacturing Process}
+% Outline the methods used to produce your design and any challenges encountered. Discuss the application of Design for Manufacturing and Assembly (DfMA) and Design for Additive Manufacturing (DfAM) principles. Example: "The main body was injection molded. We applied DfMA principles by minimizing the number of screws used, reducing assembly time by 20%. For the prototype, we used DfAM to consolidate 5 parts into a single 3D-printed component."
+
+The PNP machine primarily uses a combination of 3D printed and laser-cut MDF components. Both of these manufacturing processes are relatively simple and widely available, reducing the overall manufacturing complexity. As part of applying DfAM principles, all but one of the 3D printed components have minimal supports. In the case of the vacuum head mount, supports are used in the circular mount holes and are easy to remove with the correct drill. 
+
+Another aspect of DfM was minimising the number of custom brackets in the design, and the final design uses only five different brackets designs. This was achieved by utilising the symmetry coreXY offers, as four of the five parts were mirrored for the opposite side.
+
+The Mount block was designed to be multi-functional by both clamping the belt ends and mounting the vacuum head; reducing the required number of printed parts makes the d
+
+Another DfMA application was maximising off-the-shelf component usage. All non-3D printed and non-laser-cut components were purchased. These include the aluminium extrusions, readily available bolts, slider beams, etc. The usage of off-the-shelf components eliminated the manufacturing need for those components. It also meant the points of attachment were of standardised sizes, thus further reducing the number of custom fittings.
+
+DfMA was taken into account during the design process by reducing the overall number of bolts required. The laser-cut MDF components slot together without need for additional fasteners. The aluminium extrusion bolt holes have been lined up with the motor and pulley mounts, eliminating a double up of bolts. To account for potential manufacturing tolerances and how they affect assembly, slots instead of holes have been cut into the pulley and motor mounts to allow for horizontal adjustment without reprinting the components.
+
+DfM and DfA were considered side by side regarding the pulley bracket and perpendicular axis mounting bracket. If the parts were 3D printed separately (figure \ref{fig:pulley printing comparison}), there would be potential alignment difficulties when bolting the blocks to the carriage, increasing assembly time and complexity. However, this approach considerably simplified the printing process, as far less support material is needed. The alternative was to print the brackets as a single piece. This simplified assembly, but complicated the manufacturing due to the need for generous support during printing. The increased assembly complexity was decided to be less an impact than the complications with printing the brackets as a single unit, so the parts were printed separately.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Images/printing comparison.png}
+    \caption{Comparison of manufacturing approaches}
+    \label{fig:pulley printing comparison}
+\end{figure}
+
+
+\section{Sustainability and Environmental Considerations - EVA}
+% Discuss the environmental impact of your design and any sustainability measures incorporated. Example: "90\% of the mouse components are recyclable, and we've implemented a take-back program for end-of-life disposal. We estimate a 15\% reduction in carbon footprint compared to conventional mice due to our material choices and efficient assembly process."
+Sustainability and end of life are huge factors in product design, so this was taken into account when selecting materials and production methods. One consideration was to limit materials and number of parts to minimise 3D printer usage.  The MDF is recyclable \cite{recyclingInternational} and PLA is biodegradable, which means most of the machine can be either recycled or reused (in case of the smaller parts such as nuts and bolts). To ensure it is properly processed at the end of its lifetime, comprehensive instructions for disposal will be included in the instruction manual   
+
+type of wood chosen to reduce environmental impact, how to dispose of product (reference product life cycle). since a large portion of the system is 3d printed, talk about filament type?  
+
+
+\section{Conclusion - LIAM}
+% Summarize key achievements, lessons learned, and suggest future improvements. Include estimated total costs and assembly time. Example: "We successfully created an ergonomic mouse that significantly reduces wrist strain. The estimated total cost is $15.75 per unit with an assembly time of 12 minutes. Future improvements could focus on reducing assembly time further and exploring biodegradable materials for the outer casing."
+
+\newpage
+\printbibliography
+%https://www.bunnings.co.nz/products/building-hardware/building-boards/mdf-sheets-boards?gad_source=1&gclid=EAIaIQobChMIwOnDqfnyhwMVcatmAh2sEzkIEAAYASAAEgK1kfD_BwE&gclsrc=aw.ds
+%https://layers.app/blog/3d-print-cost-calculator/
+
+\end{document}
+
+%pulley pieces - 132.912
+%mountblock - 57.905
+%motor mount - 49.665
+%moving piece - 112.329
+% part 2 - 32.364
+%part 1 - 30.479
+
+$.25/cm^3$
+
+==$109.10 total (assuming .3/cm^3)
+
+
+
+% bottom plate - 0.44
+gusset - 0.083
+side plate - 0.13
+
+17.69/m^2
+
+0.653m^2
+$
+==
